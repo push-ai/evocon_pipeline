@@ -1,4 +1,4 @@
-name: Run evocon_pipeline pipeline from rest_api_pipeline.py
+name: Run evocon_pipeline pipeline from evocon.py
 "on":
   schedule:
     - cron: 0 1 * * *
@@ -44,4 +44,4 @@ jobs:
       - run: pip install -r requirements_github_action.txt
         if: steps.cache-virtualenv.outputs.cache-hit != 'true'
       - name: Run pipeline script
-        run: python 'rest_api_pipeline.py'
+        run: python 'evocon.py'

@@ -16,7 +16,7 @@ def get_date_range():
     return start_date, end_date
 
 @dlt.source(name="evocon")
-def evocon_source(api_key: Optional[str] = dlt.secrets.value) -> Any:
+def evocon_source() -> Any:
     start_date, end_date = get_date_range()
     
     api_key = os.environ.get("SOURCES__EVOCON__API_KEY")
