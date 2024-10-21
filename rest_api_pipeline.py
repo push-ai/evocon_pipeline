@@ -20,8 +20,8 @@ def evocon_source(api_key: Optional[str] = dlt.secrets.value) -> Any:
             "base_url": "https://api.evocon.com/api/reports/",
             "auth": {
                 "type": "http_basic",
-                "username": dlt.secrets.get("sources.evocon.api_key"),
-                "password": dlt.secrets.get("sources.evocon.secret"),
+                "username": os.environ.get("SOURCES__EVOCON__API_KEY"),
+                "password": os.environ.get("SOURCES__EVOCON__SECRET"),
             },
         },
         "resource_defaults": {
