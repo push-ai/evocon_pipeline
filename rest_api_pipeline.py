@@ -19,9 +19,9 @@ def evocon_source(api_key: Optional[str] = dlt.secrets.value) -> Any:
         "client": {
             "base_url": "https://api.evocon.com/api/reports/",
             "auth": {
-                "type": "basic",
-                "username": dlt.secrets.sources.evocon.api_key,
-                "password": dlt.secrets.sources.evocon.secret,
+                "type": "http_basic",
+                "username": dlt.secrets.get("sources.evocon.api_key"),
+                "password": dlt.secrets.get("sources.evocon.secret"),
             },
         },
         "resource_defaults": {
@@ -46,10 +46,16 @@ def evocon_source(api_key: Optional[str] = dlt.secrets.value) -> Any:
                     "path": "losses_json",
                 },
             },
+            {
+                "name": "client_metrics",
+                "endpoint": {
+                    "path": "clientmetrics_json",
+                },
+            },
         ],
     }
 
-    yield from rest_api_source(config)
+    return rest_api_source(config)
 
 def load_evocon_data() -> None:
     pipeline = dlt.pipeline(
