@@ -76,9 +76,6 @@ def load_evocon_data() -> None:
         pipeline_name="evocon_pipeline",
         destination='snowflake',
         dataset_name="evocon_data",
-        destination_options={
-            "warehouse": os.environ.get("DESTINATION__SNOWFLAKE__CREDENTIALS__WAREHOUSE")  # Replace with your actual warehouse name
-        }
     )
 
     load_info = pipeline.run(evocon_source())
