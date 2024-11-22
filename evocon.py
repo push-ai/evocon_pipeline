@@ -79,15 +79,29 @@ def evocon_source() -> Any:
 
     return rest_api_source(config)
 
-def load_evocon_data() -> None:
+def load_evocon_data(full_refresh: bool = False) -> None:
+    """
+    Load data from Evocon API
+    Args:
+        full_refresh (bool): If True, drops existing tables and reloads all data
+    """
     pipeline = dlt.pipeline(
         pipeline_name="evocon_pipeline",
         destination='snowflake',
         dataset_name="evocon",
     )
 
-    load_info = pipeline.run(evocon_source())
+    # Use write_disposition instead of full_refresh
+    load_info = pipeline.run(
+        evocon_source(),
+        write_disposition="replace" if full_refresh else "merge"
+    )
     print(load_info)
 
 if __name__ == "__main__":
-    load_evocon_data()
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--full-refresh', action='store_true', help='Perform a full refresh of all data')
+    args = parser.parse_args()
+    
+    load_evocon_data(full_refresh=args.full_refresh)
