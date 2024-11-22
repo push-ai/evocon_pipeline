@@ -3,27 +3,35 @@ import os
 from datetime import datetime, timedelta
 import logging
 
+# Import dlt first
+import dlt
+from dlt.sources.rest_api import rest_api_source, RESTAPIConfig
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-import dlt
-from dlt.sources.rest_api import rest_api_source, RESTAPIConfig
+# Remove the dlt.config import since it's included in the main dlt package
+# import dlt.config
+
+# Remove this line since secrets are loaded automatically
+# dlt.config.set_secrets_from_toml()
 
 # Function to get the date range for the API call
 def get_date_range():
     end_date = datetime.now().strftime("%Y-%m-%d")
-    start_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
+    start_date = (datetime.now() - timedelta(days=2)).strftime("%Y-%m-%d")
     return start_date, end_date
 
 @dlt.source(name="evocon")
 def evocon_source() -> Any:
     start_date, end_date = get_date_range()
     
-    api_key = os.environ.get("SOURCES__EVOCON__API_KEY")
-    api_secret = os.environ.get("SOURCES__EVOCON__SECRET")
+    # Get credentials directly from dlt.secrets
+    api_key = dlt.secrets['sources.evocon.api_key']
+    api_secret = dlt.secrets['sources.evocon.secret']
     
     if not api_key or not api_secret:
-        logger.error("API key or secret is missing from environment variables")
+        logger.error("API key or secret is missing from secrets.toml")
         raise ValueError("API credentials are not set properly")
     
     logger.info(f"API Key: {api_key[:5]}...{api_key[-5:]}")  # Log part of the key for verification
@@ -75,7 +83,7 @@ def load_evocon_data() -> None:
     pipeline = dlt.pipeline(
         pipeline_name="evocon_pipeline",
         destination='snowflake',
-        dataset_name="evocon_data",
+        dataset_name="evocon",
     )
 
     load_info = pipeline.run(evocon_source())
