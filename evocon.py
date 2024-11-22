@@ -58,15 +58,15 @@ def evocon_source() -> Any:
         "resources": [
             {
                 "name": "oee",
-                "endpoint": {
-                    "path": "oee_json",
-                },
+                "endpoint": {"path": "oee_json"},
+                "primary_key": ["shift_id"],
+                "write_disposition": "merge"
             },
             {
                 "name": "losses",
-                "endpoint": {
-                    "path": "losses_json",
-                },
+                "endpoint": {"path": "losses_json"},
+                "primary_key": ["id"],
+                "write_disposition": "merge"
             },
             {
                 "name": "client_metrics",
