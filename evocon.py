@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 # Function to get the date range for the API call
 def get_date_range():
     end_date = datetime.now().strftime("%Y-%m-%d")
-    start_date = (datetime.now() - timedelta(days=2)).strftime("%Y-%m-%d")
+    start_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
     return start_date, end_date
 
 @dlt.source(name="evocon")
