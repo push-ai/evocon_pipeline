@@ -92,14 +92,14 @@ def evocon_source(start_date: str, end_date: str) -> Any:
 
 def load_evocon_data(start_date: Optional[str] = None, end_date: Optional[str] = None, write_disposition: str = "merge") -> None:
     """
-    Load data from Evocon API
+    Load data from Evocon API with a one-day overlap to catch retroactive updates
     Args:
-        start_date (str, optional): Start date in YYYY-MM-DD format. Defaults to yesterday.
+        start_date (str, optional): Start date in YYYY-MM-DD format. Defaults to 2 days ago.
         end_date (str, optional): End date in YYYY-MM-DD format. Defaults to today.
         write_disposition (str): Write disposition for the pipeline. Defaults to "merge".
     """
     if not start_date:
-        start_date = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
+        start_date = (datetime.now() - timedelta(days=2)).strftime("%Y-%m-%d")
     if not end_date:
         end_date = datetime.now().strftime("%Y-%m-%d")
 
