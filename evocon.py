@@ -92,7 +92,7 @@ def evocon_source(start_date: str, end_date: str) -> Any:
                         "endTime": end_date,
                     }
                 },
-                "primary_key": ["id"]
+                "primary_key": ["stopInstanceId"]
             },
             {
                 "name": "checklists",
