@@ -81,7 +81,7 @@ def evocon_source(start_date: str, end_date: str) -> Any:
                         "endTime": end_date,
                     }
                 },
-                "primary_key": ["id"]
+                "primary_key": ["shiftId", "date", "stationId", "productCode", "scrapReasonName"]
             },
             {
                 "name": "downtime",
@@ -103,7 +103,7 @@ def evocon_source(start_date: str, end_date: str) -> Any:
                         "endTime": end_date,
                     }
                 },
-                "primary_key": ["id"]
+                "primary_key": ["shiftId", "date", "station", "name", "itemname"]
             },
             {
                 "name": "quantity",
