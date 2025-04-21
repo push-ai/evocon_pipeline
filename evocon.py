@@ -7,7 +7,7 @@ import logging
 import dlt
 from dlt.sources.rest_api import rest_api_source, RESTAPIConfig
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Get environment from dlt config, default to 'prod' for GitHub Actions
