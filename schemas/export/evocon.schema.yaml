@@ -1,5 +1,5 @@
-version: 2
-version_hash: mPK9YYHgAitj/VLKDSeVayxdTIv97rhWGrcExxLhQ+o=
+version: 8
+version_hash: Tl/aNUiTJU/0J6snl2w3k20uqf2d3P2xPx3IFTQXOJw=
 engine_version: 11
 name: evocon
 tables:
@@ -141,12 +141,33 @@ tables:
         nullable: false
         unique: true
         row_key: true
-    write_disposition: replace
+    write_disposition: merge
     resource: oee
     x-normalizer:
       seen-data: true
   losses:
     columns:
+      factory:
+        data_type: text
+        nullable: true
+      shift_id:
+        data_type: bigint
+        nullable: true
+      changeover_id:
+        data_type: bigint
+        nullable: true
+      operator_team:
+        data_type: text
+        nullable: true
+      start:
+        data_type: timestamp
+        nullable: true
+      stop_id:
+        data_type: bigint
+        nullable: true
+      stop_type:
+        data_type: text
+        nullable: true
       stop_group:
         data_type: text
         nullable: true
@@ -156,10 +177,19 @@ tables:
       product_name:
         data_type: text
         nullable: true
+      stop_group_id:
+        data_type: bigint
+        nullable: true
       shift_name:
         data_type: text
         nullable: true
       product_sku:
+        data_type: text
+        nullable: true
+      stop:
+        data_type: text
+        nullable: true
+      production_order_number:
         data_type: text
         nullable: true
       shift_end:
@@ -174,6 +204,12 @@ tables:
       end:
         data_type: timestamp
         nullable: true
+      location:
+        data_type: text
+        nullable: true
+      comment:
+        data_type: text
+        nullable: true
       id:
         nullable: false
         primary_key: true
@@ -184,48 +220,6 @@ tables:
       station_id:
         data_type: bigint
         nullable: true
-      factory:
-        data_type: text
-        nullable: true
-      shift_id:
-        data_type: bigint
-        nullable: true
-      changeover_id:
-        data_type: bigint
-        nullable: true
-      loss_tag:
-        data_type: text
-        nullable: true
-      operator_team:
-        data_type: text
-        nullable: true
-      start:
-        data_type: timestamp
-        nullable: true
-      stop_id:
-        data_type: bigint
-        nullable: true
-      stop_type:
-        data_type: text
-        nullable: true
-      station_group:
-        data_type: text
-        nullable: true
-      stop_group_id:
-        data_type: bigint
-        nullable: true
-      stop:
-        data_type: text
-        nullable: true
-      production_order_number:
-        data_type: text
-        nullable: true
-      location:
-        data_type: text
-        nullable: true
-      comment:
-        data_type: text
-        nullable: true
       _dlt_load_id:
         data_type: text
         nullable: false
@@ -234,10 +228,20 @@ tables:
         nullable: false
         unique: true
         row_key: true
-    write_disposition: replace
+      station_group:
+        data_type: text
+        nullable: true
+      loss_tag:
+        data_type: text
+        nullable: true
+    write_disposition: merge
     resource: losses
     x-normalizer:
       seen-data: true
+  client_metrics:
+    columns: {}
+    write_disposition: merge
+    resource: client_metrics
   scrap:
     columns:
       date:
@@ -310,7 +314,7 @@ tables:
         nullable: false
         unique: true
         row_key: true
-    write_disposition: replace
+    write_disposition: merge
     resource: scrap
     x-normalizer:
       seen-data: true
@@ -415,7 +419,7 @@ tables:
         nullable: false
         unique: true
         row_key: true
-    write_disposition: replace
+    write_disposition: merge
     resource: downtime
     x-normalizer:
       seen-data: true
@@ -533,7 +537,10 @@ tables:
         nullable: false
         unique: true
         row_key: true
-    write_disposition: replace
+      lotcode:
+        data_type: text
+        nullable: true
+    write_disposition: merge
     resource: checklists
     x-normalizer:
       seen-data: true
@@ -632,41 +639,8 @@ tables:
         nullable: false
         unique: true
         row_key: true
-    write_disposition: replace
+    write_disposition: merge
     resource: quantity
-    x-normalizer:
-      seen-data: true
-  _dlt_pipeline_state:
-    columns:
-      version:
-        data_type: bigint
-        nullable: false
-      engine_version:
-        data_type: bigint
-        nullable: false
-      pipeline_name:
-        data_type: text
-        nullable: false
-      state:
-        data_type: text
-        nullable: false
-      created_at:
-        data_type: timestamp
-        nullable: false
-      version_hash:
-        data_type: text
-        nullable: true
-      _dlt_load_id:
-        data_type: text
-        nullable: false
-      _dlt_id:
-        data_type: text
-        nullable: false
-        unique: true
-        row_key: true
-    write_disposition: append
-    file_format: preferred
-    resource: _dlt_pipeline_state
     x-normalizer:
       seen-data: true
 settings:
@@ -691,6 +665,29 @@ normalizers:
   names: snake_case
   json:
     module: dlt.common.normalizers.json.relational
+    config:
+      propagation:
+        tables:
+          oee:
+            _dlt_id: _dlt_root_id
+          losses:
+            _dlt_id: _dlt_root_id
+          client_metrics:
+            _dlt_id: _dlt_root_id
+          scrap:
+            _dlt_id: _dlt_root_id
+          downtime:
+            _dlt_id: _dlt_root_id
+          checklists:
+            _dlt_id: _dlt_root_id
+          quantity:
+            _dlt_id: _dlt_root_id
+  use_break_path_on_normalize: false
 previous_hashes:
-- dX4An2YZnm6vOehvsg7s8NwLDKDOgWWjnHnU2xawwjE=
-- ScQNHlrMQgOUanIKbnaz1lEFzaWe6zz3MvRjZsz53qE=
+- aLkBe7diGE05pH+TC3O8IgWi+JktIuXTBaJCDcLWB3I=
+- dOhSePTxzriXP0vZKELjy2C2yTwXhF8lySH+s39kpQU=
+- mitHtk9IPOrW+ukVz9vQo5vUNkVZR8FBlw9sIVJOURw=
+- cea0sCjx6R7PaIPb2e4ZCOTgK3BGl2lPVKsma2PGTNM=
+- lPRAv7cTEYaZpAOfU52uvuRbObrarABk2/Wv2tp1Vn0=
+- V90efACUOalz6AoYPD70wzzWm9gxsHa4Er2uj2apF/8=
+- 2y/SKVqlCvlGSkgcjzPfRjvVBNssJTavlLxAOgeSQAw=
