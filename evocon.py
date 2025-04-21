@@ -81,7 +81,7 @@ def evocon_source(start_date: str, end_date: str) -> Any:
                         "endTime": end_date,
                     }
                 },
-                "primary_key": ["shiftId", "date", "stationId", "productCode", "scrapReasonName"]
+                "primary_key": ["shift_id", "date", "station", "product_code", "scrap_reason_name"]
             },
             {
                 "name": "downtime",
@@ -92,7 +92,7 @@ def evocon_source(start_date: str, end_date: str) -> Any:
                         "endTime": end_date,
                     }
                 },
-                "primary_key": ["stopInstanceId"]
+                "primary_key": ["stop_instance_id"]
             },
             {
                 "name": "checklists",
@@ -103,7 +103,7 @@ def evocon_source(start_date: str, end_date: str) -> Any:
                         "endTime": end_date,
                     }
                 },
-                "primary_key": ["shiftId", "date", "station", "name", "itemname"]
+                "primary_key": ["shift_id", "date", "station", "name", "itemname"]
             },
             {
                 "name": "quantity",
@@ -164,6 +164,7 @@ def load_evocon_data(start_date: Optional[str] = None, end_date: Optional[str] =
         pipeline_name="evocon_pipeline",
         destination='snowflake',
         dataset_name=dataset_name,  # This will create a separate schema in Snowflake
+        export_schema_path="schemas/export"
     )
 
     load_info = pipeline.run(
