@@ -3,7 +3,6 @@ cron-descriptor==1.4.5
 dbt==1.0.0.37.11
 dbt-bigquery==1.6.4
 dbt-metricflow==0.3.0
-dlt==1.2.0
 gtfs-realtime-bindings==1.0.0
 importlib-resources==6.4.0
 ipykernel==6.25.2
@@ -17,6 +16,6 @@ ruamel.yaml==0.17.32
 snowflake-sqlalchemy==1.4.7
 tomli==2.0.1
 whois==1.20240129.2
-dlt[snowflake]>=1.2.0
+dlt[snowflake]>=1.9.0
 numpy==1.23.5
 pandas==1.5.3
