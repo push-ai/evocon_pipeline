@@ -1,2 +1,3 @@
 [runtime]
 dlthub_telemetry = true
+environment = "prod"

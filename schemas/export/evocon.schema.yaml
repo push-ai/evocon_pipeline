@@ -1,0 +1,693 @@
+version: 8
+version_hash: Tl/aNUiTJU/0J6snl2w3k20uqf2d3P2xPx3IFTQXOJw=
+engine_version: 11
+name: evocon
+tables:
+  _dlt_version:
+    columns:
+      version:
+        data_type: bigint
+        nullable: false
+      engine_version:
+        data_type: bigint
+        nullable: false
+      inserted_at:
+        data_type: timestamp
+        nullable: false
+      schema_name:
+        data_type: text
+        nullable: false
+      version_hash:
+        data_type: text
+        nullable: false
+      schema:
+        data_type: text
+        nullable: false
+    write_disposition: skip
+    resource: _dlt_version
+    description: Created by DLT. Tracks schema updates
+  _dlt_loads:
+    columns:
+      load_id:
+        data_type: text
+        nullable: false
+      schema_name:
+        data_type: text
+        nullable: true
+      status:
+        data_type: bigint
+        nullable: false
+      inserted_at:
+        data_type: timestamp
+        nullable: false
+      schema_version_hash:
+        data_type: text
+        nullable: true
+    write_disposition: skip
+    resource: _dlt_loads
+    description: Created by DLT. Tracks completed loads
+  oee:
+    columns:
+      date:
+        data_type: text
+        nullable: true
+      technical_stop_time_sec:
+        data_type: bigint
+        nullable: true
+      last_modified_time:
+        data_type: timestamp
+        nullable: true
+      total_qty:
+        data_type: double
+        nullable: true
+      perf_loss_count:
+        data_type: bigint
+        nullable: true
+      shift:
+        data_type: text
+        nullable: true
+      operating_time_sec:
+        data_type: double
+        nullable: true
+      ideal_qty:
+        data_type: double
+        nullable: true
+      last_modified_time_local:
+        data_type: timestamp
+        nullable: true
+      ideal_qty_of_stops:
+        data_type: double
+        nullable: true
+      station_group_id:
+        data_type: bigint
+        nullable: true
+      slow_production:
+        data_type: double
+        nullable: true
+      station:
+        data_type: text
+        nullable: true
+      planned_time:
+        data_type: bigint
+        nullable: true
+      plannedstops:
+        data_type: bigint
+        nullable: true
+      unplannedstops:
+        data_type: bigint
+        nullable: true
+      day:
+        data_type: bigint
+        nullable: true
+      station_id:
+        data_type: bigint
+        nullable: true
+      factory:
+        data_type: text
+        nullable: true
+      shift_id:
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      good_prodction:
+        data_type: double
+        nullable: true
+      good_production:
+        data_type: double
+        nullable: true
+      station_group:
+        data_type: text
+        nullable: true
+      good_qty:
+        data_type: double
+        nullable: true
+      downtime:
+        data_type: bigint
+        nullable: true
+      month:
+        data_type: bigint
+        nullable: true
+      weekofyear:
+        data_type: bigint
+        nullable: true
+      uncommented:
+        data_type: bigint
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: merge
+    resource: oee
+    x-normalizer:
+      seen-data: true
+  losses:
+    columns:
+      factory:
+        data_type: text
+        nullable: true
+      shift_id:
+        data_type: bigint
+        nullable: true
+      changeover_id:
+        data_type: bigint
+        nullable: true
+      operator_team:
+        data_type: text
+        nullable: true
+      start:
+        data_type: timestamp
+        nullable: true
+      stop_id:
+        data_type: bigint
+        nullable: true
+      stop_type:
+        data_type: text
+        nullable: true
+      stop_group:
+        data_type: text
+        nullable: true
+      ideal_qty:
+        data_type: double
+        nullable: true
+      product_name:
+        data_type: text
+        nullable: true
+      stop_group_id:
+        data_type: bigint
+        nullable: true
+      shift_name:
+        data_type: text
+        nullable: true
+      product_sku:
+        data_type: text
+        nullable: true
+      stop:
+        data_type: text
+        nullable: true
+      production_order_number:
+        data_type: text
+        nullable: true
+      shift_end:
+        data_type: timestamp
+        nullable: true
+      station:
+        data_type: text
+        nullable: true
+      stop_minutes:
+        data_type: bigint
+        nullable: true
+      end:
+        data_type: timestamp
+        nullable: true
+      location:
+        data_type: text
+        nullable: true
+      comment:
+        data_type: text
+        nullable: true
+      id:
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      shift_start:
+        data_type: timestamp
+        nullable: true
+      station_id:
+        data_type: bigint
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      station_group:
+        data_type: text
+        nullable: true
+      loss_tag:
+        data_type: text
+        nullable: true
+    write_disposition: merge
+    resource: losses
+    x-normalizer:
+      seen-data: true
+  client_metrics:
+    columns: {}
+    write_disposition: merge
+    resource: client_metrics
+  scrap:
+    columns:
+      date:
+        nullable: false
+        primary_key: true
+        data_type: text
+      factory:
+        data_type: text
+        nullable: true
+      shift_id:
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      total_qty:
+        data_type: double
+        nullable: true
+      shift:
+        data_type: text
+        nullable: true
+      ideal_qty:
+        data_type: double
+        nullable: true
+      station_group:
+        data_type: text
+        nullable: true
+      scrap_reason_name:
+        nullable: false
+        primary_key: true
+        data_type: text
+      product_name:
+        data_type: text
+        nullable: true
+      good_qty:
+        data_type: double
+        nullable: true
+      scrap_reason_group_name:
+        data_type: text
+        nullable: true
+      scrap:
+        data_type: double
+        nullable: true
+      product_code:
+        nullable: false
+        primary_key: true
+        data_type: text
+      month:
+        data_type: bigint
+        nullable: true
+      station_group_id:
+        data_type: bigint
+        nullable: true
+      station:
+        nullable: false
+        primary_key: true
+        data_type: text
+      weekofyear:
+        data_type: bigint
+        nullable: true
+      day:
+        data_type: bigint
+        nullable: true
+      station_id:
+        data_type: bigint
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: merge
+    resource: scrap
+    x-normalizer:
+      seen-data: true
+  downtime:
+    columns:
+      last_modified_time:
+        data_type: timestamp
+        nullable: true
+      year:
+        data_type: bigint
+        nullable: true
+      local_end_time:
+        data_type: timestamp
+        nullable: true
+      extra_note:
+        data_type: text
+        nullable: true
+      changeover_production_order:
+        data_type: text
+        nullable: true
+      batch_id:
+        data_type: bigint
+        nullable: true
+      product_name:
+        data_type: text
+        nullable: true
+      shift_name:
+        data_type: text
+        nullable: true
+      lost_quantity:
+        data_type: double
+        nullable: true
+      stop_duration_seconds:
+        data_type: bigint
+        nullable: true
+      stop_instance_id:
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      local_start_time:
+        data_type: timestamp
+        nullable: true
+      station_name:
+        data_type: text
+        nullable: true
+      day:
+        data_type: bigint
+        nullable: true
+      changeover_notes:
+        data_type: text
+        nullable: true
+      stop_name:
+        data_type: text
+        nullable: true
+      station_id:
+        data_type: bigint
+        nullable: true
+      shift_id:
+        data_type: bigint
+        nullable: true
+      operator_team_id:
+        data_type: bigint
+        nullable: true
+      product_id:
+        data_type: bigint
+        nullable: true
+      operator_team:
+        data_type: text
+        nullable: true
+      shift_date:
+        data_type: text
+        nullable: true
+      stop_id:
+        data_type: bigint
+        nullable: true
+      stop_type:
+        data_type: text
+        nullable: true
+      stop_group_id:
+        data_type: bigint
+        nullable: true
+      month:
+        data_type: bigint
+        nullable: true
+      stop_group_name:
+        data_type: text
+        nullable: true
+      location:
+        data_type: text
+        nullable: true
+      changeover_lot_code:
+        data_type: text
+        nullable: true
+      weekofyear:
+        data_type: bigint
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: merge
+    resource: downtime
+    x-normalizer:
+      seen-data: true
+  checklists:
+    columns:
+      date:
+        nullable: false
+        primary_key: true
+        data_type: text
+      dailytime:
+        data_type: text
+        nullable: true
+      changeoverinterval:
+        data_type: double
+        nullable: true
+      triggerquantity:
+        data_type: text
+        nullable: true
+      shift:
+        data_type: text
+        nullable: true
+      range:
+        data_type: text
+        nullable: true
+      donetime:
+        data_type: text
+        nullable: true
+      productproducedcode:
+        data_type: text
+        nullable: true
+      production_order:
+        data_type: text
+        nullable: true
+      operator:
+        data_type: text
+        nullable: true
+      changeovercycle:
+        data_type: text
+        nullable: true
+      result:
+        data_type: text
+        nullable: true
+      station:
+        nullable: false
+        primary_key: true
+        data_type: text
+      duetime:
+        data_type: text
+        nullable: true
+      shift_id:
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      productproduced:
+        data_type: text
+        nullable: true
+      stopgroup:
+        data_type: text
+        nullable: true
+      stopreason:
+        data_type: text
+        nullable: true
+      itemname:
+        nullable: false
+        primary_key: true
+        data_type: text
+      itemresultdefined:
+        data_type: text
+        nullable: true
+      shift_date:
+        data_type: text
+        nullable: true
+      productproducedgroup:
+        data_type: text
+        nullable: true
+      factory_name:
+        data_type: text
+        nullable: true
+      dailyday:
+        data_type: text
+        nullable: true
+      trigger:
+        data_type: text
+        nullable: true
+      doneby:
+        data_type: text
+        nullable: true
+      unit:
+        data_type: text
+        nullable: true
+      itemtype:
+        data_type: text
+        nullable: true
+      name:
+        nullable: false
+        primary_key: true
+        data_type: text
+      location:
+        data_type: text
+        nullable: true
+      comment:
+        data_type: text
+        nullable: true
+      triggertime:
+        data_type: double
+        nullable: true
+      itemresult:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      lotcode:
+        data_type: text
+        nullable: true
+    write_disposition: merge
+    resource: checklists
+    x-normalizer:
+      seen-data: true
+  quantity:
+    columns:
+      operator:
+        data_type: text
+        nullable: true
+      article_code:
+        data_type: text
+        nullable: true
+      start:
+        data_type: timestamp
+        nullable: true
+      article:
+        data_type: text
+        nullable: true
+      comment_notes:
+        data_type: text
+        nullable: true
+      ideal_qty:
+        data_type: double
+        nullable: true
+      production_order:
+        data_type: text
+        nullable: true
+      duration_hour:
+        data_type: double
+        nullable: true
+      batch:
+        data_type: bigint
+        nullable: true
+      duration_sec:
+        data_type: bigint
+        nullable: true
+      id:
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      production_order_note:
+        data_type: text
+        nullable: true
+      shift:
+        data_type: bigint
+        nullable: true
+      comment:
+        data_type: text
+        nullable: true
+      quantity_scrap:
+        data_type: double
+        nullable: true
+      cycle_time_good:
+        data_type: double
+        nullable: true
+      shift_name:
+        data_type: text
+        nullable: true
+      comment_group:
+        data_type: text
+        nullable: true
+      cycle_time_critical:
+        data_type: double
+        nullable: true
+      color:
+        data_type: text
+        nullable: true
+      quantity:
+        data_type: double
+        nullable: true
+      product_change_note:
+        data_type: text
+        nullable: true
+      station:
+        data_type: text
+        nullable: true
+      article_group:
+        data_type: text
+        nullable: true
+      type:
+        data_type: text
+        nullable: true
+      quantity_produced:
+        data_type: double
+        nullable: true
+      end:
+        data_type: timestamp
+        nullable: true
+      location:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: merge
+    resource: quantity
+    x-normalizer:
+      seen-data: true
+settings:
+  detections:
+  - iso_timestamp
+  default_hints:
+    not_null:
+    - _dlt_id
+    - _dlt_root_id
+    - _dlt_parent_id
+    - _dlt_list_idx
+    - _dlt_load_id
+    parent_key:
+    - _dlt_parent_id
+    root_key:
+    - _dlt_root_id
+    unique:
+    - _dlt_id
+    row_key:
+    - _dlt_id
+normalizers:
+  names: snake_case
+  json:
+    module: dlt.common.normalizers.json.relational
+    config:
+      propagation:
+        tables:
+          oee:
+            _dlt_id: _dlt_root_id
+          losses:
+            _dlt_id: _dlt_root_id
+          client_metrics:
+            _dlt_id: _dlt_root_id
+          scrap:
+            _dlt_id: _dlt_root_id
+          downtime:
+            _dlt_id: _dlt_root_id
+          checklists:
+            _dlt_id: _dlt_root_id
+          quantity:
+            _dlt_id: _dlt_root_id
+  use_break_path_on_normalize: false
+previous_hashes:
+- aLkBe7diGE05pH+TC3O8IgWi+JktIuXTBaJCDcLWB3I=
+- dOhSePTxzriXP0vZKELjy2C2yTwXhF8lySH+s39kpQU=
+- mitHtk9IPOrW+ukVz9vQo5vUNkVZR8FBlw9sIVJOURw=
+- cea0sCjx6R7PaIPb2e4ZCOTgK3BGl2lPVKsma2PGTNM=
+- lPRAv7cTEYaZpAOfU52uvuRbObrarABk2/Wv2tp1Vn0=
+- V90efACUOalz6AoYPD70wzzWm9gxsHa4Er2uj2apF/8=
+- 2y/SKVqlCvlGSkgcjzPfRjvVBNssJTavlLxAOgeSQAw=
